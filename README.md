@@ -102,5 +102,5 @@ PromptResume is an AI-powered resume builder that generates professional resumes
 
 ## Contact
 
-Created by Shailesh H - feel free to reach out!
+Created by [Shailesh H](hariharanshailesh@gmail.com) - feel free to reach out!
 
