@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsc -b && node dist/index.js",
-    "build": "tsc -b",                    // Used by Vercel to compile TS to dist/
+    "build": "tsc -b",
     "start": "node dist/index.js" 
   },
   "keywords": [],
