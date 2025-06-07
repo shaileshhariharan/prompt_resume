@@ -4,9 +4,9 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "tsc -w",                      // For local development: watch mode
+    "dev": "tsc -b && node dist/index.js",
     "build": "tsc -b",                    // Used by Vercel to compile TS to dist/
-    "start": "node dist/index.js"         // Run compiled code only
+    "start": "node dist/index.js" 
   },
   "keywords": [],
   "author": "",
