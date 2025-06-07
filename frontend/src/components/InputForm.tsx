@@ -42,7 +42,7 @@ const InputForm: React.FC<InputFormProps> = ({
       if (isExample) {
         generatedResume = await generateResume(prompt);
       } else {
-        const response = await axios.post("http://localhost:3000/generate", {
+        const response = await axios.post("https://prompt-resume-qgol.vercel.app/generate", {
           prompt,
         });
         generatedResume = response.data;
