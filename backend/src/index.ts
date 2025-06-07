@@ -3,8 +3,8 @@ import express, { json } from "express";
 import cors from "cors";
 import { RESUME_PROMPT_TEMPLATE } from "./promptConfig";
 
-require("dotenv").config();
-const PORT = 8000;
+import dotenv from "dotenv";
+dotenv.config();
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
@@ -46,6 +46,12 @@ app.post("/generate", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`✅ Server is running on port ${PORT}`);
-});
+// Only listen locally
+if (require.main === module) {
+  app.listen(3000, () => {
+    console.log("Server listening on port 3000");
+  });
+}
+
+// For Vercel
+module.exports = app;
