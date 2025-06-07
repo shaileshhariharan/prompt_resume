@@ -4,12 +4,17 @@ import cors from "cors";
 import { RESUME_PROMPT_TEMPLATE } from "./promptConfig";
 
 require("dotenv").config();
+const PORT = 8000;
 
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 const app = express();
 app.use(cors());
 app.use(express.json());
+
+app.get("/", (req, res) => {
+  res.send("Prompt Resume BE");
+});
 
 //api endpoint
 app.post("/generate", async (req, res) => {
@@ -41,4 +46,6 @@ app.post("/generate", async (req, res) => {
   }
 });
 
-app.listen(80);
+app.listen(PORT, () => {
+  console.log(`✅ Server is running on port ${PORT}`);
+});
