@@ -6,6 +6,8 @@ import { RESUME_PROMPT_TEMPLATE } from "./promptConfig";
 import dotenv from "dotenv";
 dotenv.config();
 
+const port = process.env.PORT || 8080;
+
 const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
 
 const app = express();
@@ -46,12 +48,6 @@ app.post("/generate", async (req, res) => {
   }
 });
 
-// Only listen locally
-if (require.main === module) {
-  app.listen(3000, () => {
-    console.log("Server listening on port 3000");
-  });
-}
-
-// For Vercel
-module.exports = app;
+app.listen(port, () => {
+  return console.log(`Server is listening on ${port}`);
+});
