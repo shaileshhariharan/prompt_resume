@@ -4,25 +4,27 @@
   "description": "",
   "main": "dist/index.js",
   "scripts": {
-  "start": "nodemon src/index.ts",
-  "build": "rimraf dist && tsc",
-  "ts.check": "tsc --project tsconfig.json",
-  "add-build": "git add dist",
-  "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon src/index.ts",
+    "dev": "tsc -b && node dist/index.js",
+    "build": "rimraf dist && tsc",
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "pre-commit": [
-      "ts.check",
-      "build",
-      "add-build"
+    "ts.check",
+    "build",
+    "add-build"
   ],
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@types/express": "^5.0.2",
     "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
+    "dotenv": "^16.6.1",
     "express": "^5.1.0",
     "groq-sdk": "^0.22.0",
     "openai": "^4.102.0",

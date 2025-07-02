@@ -1,14 +1,14 @@
-import Groq from "groq-sdk";
 import express, { json } from "express";
 import cors from "cors";
 import { RESUME_PROMPT_TEMPLATE } from "./promptConfig";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
 import dotenv from "dotenv";
 dotenv.config();
 
 const port = process.env.PORT || 8080;
 
-const groq = new Groq({ apiKey: process.env.GROQ_API_KEY });
+const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY as string);
 
 const app = express();
 app.use(cors());
@@ -27,18 +27,19 @@ app.post("/generate", async (req, res) => {
       "{{USER_INPUT}}",
       prompt
     );
-    const response = await groq.chat.completions.create({
-      messages: [
-        {
-          role: "user",
-          content: resumePrompt,
-        },
-      ],
-      model: "llama-3.3-70b-versatile",
-    });
-    const generatedResume = response.choices[0]?.message?.content || "";
-    const cleaned = generatedResume.replace(/```json|```/g, "").trim();
+
+    const model = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+    const result = await model.generateContent(resumePrompt);
+    const response = await result.response;
+    const text = response.text();
+
+    // Extract JSON block if the model wraps it in markdown (```json ... ```)
+    const cleaned = text.replace(/```json|```/g, "").trim();
     const parsed = JSON.parse(cleaned);
+
+    res.json(parsed);
+    console.log(parsed);
 
     res.json(parsed);
     console.log(parsed);
